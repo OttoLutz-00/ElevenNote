@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace ElevenNote.WebAPI.Controllers
 {
+    //this class contains our controllers, or endpoints.
     [Authorize]
     public class NoteController : ApiController
     {
@@ -30,6 +31,14 @@ namespace ElevenNote.WebAPI.Controllers
             NoteService noteService = CreateNoteService();
             var notes = noteService.GetNotes();
             return Ok(notes);
+        }
+
+        // GET by Id
+        public IHttpActionResult Get(int id)
+        {
+            NoteService noteService = CreateNoteService();
+            var note = noteService.GetNoteById(id);
+            return Ok(note);
         }
 
         // POST

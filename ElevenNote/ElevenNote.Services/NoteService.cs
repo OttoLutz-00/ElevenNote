@@ -59,6 +59,26 @@ namespace ElevenNote.Services
                 return query.ToArray();
             }
         }
+        // Read by Id, this will return a more in depth display of the notes, this includes the NoteId, Title, Content, DateCreated, DateModified
+        public NoteDetail GetNoteById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Notes
+                    .Single(e => e.NoteId == id && e.OwnerId == _userId);
+                return
+                    new NoteDetail()
+                    {
+                        NoteId = entity.NoteId,
+                        Title = entity.Title,
+                        Content = entity.Content,
+                        CreatedUtc = entity.CreatedUtc,
+                        ModifiedUtc = entity.ModifiedUtc
+                    };
+            }
+        }
 
         // Update
 

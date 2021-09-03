@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElevenNote.Data
 {
+    // Full Note class with all properties, this is what is fed to the database
     public class Note
     {
         [Key]
