@@ -58,6 +58,43 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok();
         }
 
+        // PUT
+        public IHttpActionResult Put(NoteEdit note)
+        {
+            // makes sure NoteEdit is in correct state/ format before doing anyhting
+            if (!ModelState.IsValid)
+            {
+                // incorrect state will return a bad request
+                return BadRequest(ModelState);
+
+            }
+
+            // service that allows for Note CRUD methods
+            var service = CreateNoteService();
+
+            // if the notes update method did NOT complete for some reason:
+            if (!service.UpdateNote(note))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+
+
+        }
+
+        // DELETE
+        public IHttpActionResult Delete(int id)
+        {
+            var service = CreateNoteService();
+
+            if (!service.DeleteNote(id))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
 
 
     }
